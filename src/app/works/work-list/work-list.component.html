@@ -1,0 +1,9 @@
+<p>work-list works!</p>
+{{ isLoading$ | async }}
+<button (click)="loadAllWorks()">Load</button>
+
+<div *ngFor="let work of works$ | async">
+    <h3>{{ work.title }}</h3>
+    <div>{{ work.content }}</div>
+    <button (click)="goToWork(work.urlName)">View</button>
+</div>

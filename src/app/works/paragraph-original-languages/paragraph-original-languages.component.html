@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Original Languages</h2>
+<mat-dialog-content class="mat-typography">
+    <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="transliterationName" />
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+        <mat-label>Text</mat-label>
+        <textarea  matInput [(ngModel)]="text"></textarea>
+    </mat-form-field>
+    <br />
+    <mat-checkbox class="example-margin" [(ngModel)]="isTransliteration">Is Transliteration</mat-checkbox>
+    <br />
+    <button mat-button (click)="save()">Save</button>
+</mat-dialog-content>

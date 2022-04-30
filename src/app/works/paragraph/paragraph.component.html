@@ -1,0 +1,39 @@
+<mat-card class="paragraph-card">
+    <mat-card-title-group>
+        <mat-card-title>{{ paragraph.title}}</mat-card-title>
+    </mat-card-title-group>
+    <mat-card-content>
+        <span *ngFor="let contentPart of contentParts">
+            <span *ngIf="contentPart.word else wordWithoutExplanation"><a href="#">{{ contentPart.text }}</a></span>
+            <ng-template #wordWithoutExplanation let-word>
+                {{ contentPart.text }}
+            </ng-template>
+        </span>
+    </mat-card-content>
+    <mat-card-actions align="start">
+        <mat-button-toggle-group name="favoriteColor" aria-label="Favorite Color" multiple>
+            <mat-button-toggle value="red" (change)="toggleOriginalLanguages()">Original</mat-button-toggle>
+            <mat-button-toggle value="green">Videos</mat-button-toggle>
+            <mat-button-toggle value="blue">Blogs</mat-button-toggle>
+        </mat-button-toggle-group>
+    </mat-card-actions>
+</mat-card>
+
+<ng-container *ngIf="originalLanguagesVisible">
+    <div class="paragraph-card-detail-container">
+        <mat-card class="paragraph-card-detail">
+            <mat-card-title-group>
+                <mat-card-title>Original</mat-card-title>
+            </mat-card-title-group>
+            <mat-card-content>
+                <div *ngFor="let originalLanguage of originalLanguages">
+                    <h3 *ngIf="originalLanguage.isTransliteration">
+                        {{ originalLanguage.transliterationName}}
+                    </h3>
+                    {{ originalLanguage.text }}
+                </div>
+                <button mat-button (click)="addNewOriginalLanguage()">Add</button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</ng-container>
