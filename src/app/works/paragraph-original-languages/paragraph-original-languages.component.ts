@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { createOriginalLanguage } from 'src/app/store/entities/original-languages/original-languages.actions';
 
 @Component({
   selector: 'app-paragraph-original-languages',
@@ -20,7 +21,7 @@ export class ParagraphOriginalLanguagesComponent implements OnInit {
 	ngOnInit(): void {
 	}
 
-	save(): void{/*
+	save(): void{
 		this.store.dispatch(createOriginalLanguage(
 			{
 				originalLanguage : {
@@ -31,6 +32,6 @@ export class ParagraphOriginalLanguagesComponent implements OnInit {
 					isTransliteration: this.isTransliteration
 				}
 			}
-		));*/
+		));
 	}
 }

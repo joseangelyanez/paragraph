@@ -2,9 +2,7 @@
 <div *ngIf="(work$ | async) as work">
     <h2>{{ work?.title }}</h2>
     <div>{{ work?.content}}</div>
-    <div *ngFor="let paragraph of work.paragraphs">
-        <!--
-            <app-paragraph [paragraph]=paragraph></app-paragraph>
-        -->
+    <div *ngFor="let paragraph of paragraphs$ | async">
+        <app-paragraph [paragraph]=paragraph></app-paragraph>
     </div>
 </div>

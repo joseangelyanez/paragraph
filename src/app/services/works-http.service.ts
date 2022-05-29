@@ -1,19 +1,13 @@
 
 
 import {Injectable} from "@angular/core";
-import {HttpClient, HttpParams} from "@angular/common/http";
-import {map, Observable, publishReplay, share, shareReplay} from "rxjs";
-import { IOriginalLanguage } from "../store/entities/original-language.state";
-import { IWork } from "../store/entities/works.state";
-import { IParagraph } from "../store/entities/paragraphs.state";
-import { IWord } from "../store/entities/words.state";
-
-interface IEntities {
-    works : IWork[],
-    paragraphs : IParagraph[],
-    words : IWord[],
-    originalLanguages : IOriginalLanguage[]
-}
+import {HttpClient } from "@angular/common/http";
+import {BehaviorSubject, map, Observable } from "rxjs";
+import { IOriginalLanguage } from "../store/entities/original-languages/original-languages.state";
+import { IWork } from "../store/entities/works/works.state";
+import { IParagraph } from "../store/entities/paragraphs/paragraphs.state";
+import { IWord } from "../store/entities/words/words.state";
+import { IVideo } from "../store/entities/videos/videos.state";
 
 @Injectable()
 export class WorksHttpService {
@@ -27,40 +21,18 @@ export class WorksHttpService {
     }
 
     getEntities(){
-        if (this.entities == null) {
-            return this.http.get<IEntities>(`${this.baseUrl}/paragraph`).pipe(
-                    shareReplay({
-                        bufferSize : 1,
-                        refCount:true
-                    })
-                );
-        }
-
-        return this.entities;
+        throw new Error("hello world");
     }
 
     getAllWorks(): Observable<IWork[]> {
-        return this.getEntities().pipe(
-            map((result:IEntities) => result.works)
-        );
+        throw new Error("not implemented");
     }
 
     getAllParagraphs() : Observable<IParagraph[]> {
-        return this.getEntities().pipe(
-            map((result:IEntities) => result.paragraphs)
-        );
+        throw new Error("not implemented");
     }
 
-    getWorkByUrlName(urlName:string):Observable<IWork> | undefined {
-        if (this.works.get(urlName) == null) {
-            this.works.set(
-                urlName, 
-                this.http.get<IWork>(`${this.baseUrl}/work/${urlName}`).pipe(
-                    shareReplay({ bufferSize : 1, refCount: false})
-                )   
-            )
-        }
-        
-        return this.works.get(urlName);
+    getWordExplanation(paragraph:IParagraph, text:string): IWord | null{
+        throw new Error("not implemented");
     }
 }

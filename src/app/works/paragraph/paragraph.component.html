@@ -13,8 +13,9 @@
     <mat-card-actions align="start">
         <mat-button-toggle-group name="favoriteColor" aria-label="Favorite Color" multiple>
             <mat-button-toggle value="red" (change)="toggleOriginalLanguages()">Original</mat-button-toggle>
-            <mat-button-toggle value="green">Videos</mat-button-toggle>
-            <mat-button-toggle value="blue">Blogs</mat-button-toggle>
+            <mat-button-toggle value="green" (change)="toggleVideos()">Videos</mat-button-toggle>
+            <mat-button-toggle value="blue" (change)="toggleBlogs()">Blogs</mat-button-toggle>
+            <mat-button-toggle value="blue" (change)="goToQuestions()">Questions</mat-button-toggle>
         </mat-button-toggle-group>
     </mat-card-actions>
 </mat-card>
@@ -26,13 +27,43 @@
                 <mat-card-title>Original</mat-card-title>
             </mat-card-title-group>
             <mat-card-content>
-                <div *ngFor="let originalLanguage of originalLanguages">
+                <div *ngFor="let originalLanguage of originalLanguages$ | async">
                     <h3 *ngIf="originalLanguage.isTransliteration">
                         {{ originalLanguage.transliterationName}}
                     </h3>
                     {{ originalLanguage.text }}
                 </div>
                 <button mat-button (click)="addNewOriginalLanguage()">Add</button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="videosVisible">
+    <div class="paragraph-card-detail-container">
+        <mat-card class="paragraph-card-detail">
+            <mat-card-title-group>
+                <mat-card-title>Videos</mat-card-title>
+            </mat-card-title-group>
+            <mat-card-content>
+                <div *ngFor="let video of videos$ | async">
+                    <paragraph-video [video]="video"></paragraph-video>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="blogsVisible">
+    <div class="paragraph-card-detail-container">
+        <mat-card class="paragraph-card-detail">
+            <mat-card-title-group>
+                <mat-card-title>Blogs</mat-card-title>
+            </mat-card-title-group>
+            <mat-card-content>
+                <div *ngFor="let blog of blogs$ | async">
+                    <paragraph-blog [blog]="blog"></paragraph-blog>
+                </div>
             </mat-card-content>
         </mat-card>
     </div>

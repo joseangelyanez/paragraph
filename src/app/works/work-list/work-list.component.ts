@@ -3,10 +3,9 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IAppState } from 'src/app/store';
-import { loadWorks } from 'src/app/store/entities/works.actions';
-import { worksLoading } from 'src/app/store/entities/works.selectors';
-import { IWork } from 'src/app/store/entities/works.state';
-import * as worksSelectors from '../../store/entities/works.selectors';
+import { loadWorks } from 'src/app/store/entities/works/works.actions';
+import { IWork } from 'src/app/store/entities/works/works.state';
+import * as worksSelectors from '../../store/entities/works/works.selectors';
 
 @Component({
 	selector: 'app-work-list',

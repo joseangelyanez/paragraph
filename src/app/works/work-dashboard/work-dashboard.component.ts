@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { loadWork } from 'src/app/store/entities/works.actions';
-import { IWork, IWorkState } from 'src/app/store/entities/works.state';
-import * as worksSelectors from '../../store/entities/works.selectors';
+import { IParagraph } from 'src/app/store/entities/paragraphs/paragraphs.state';
+import { IWork } from 'src/app/store/entities/works/works.state';
+import { WorksFacadeService } from 'src/app/services/works-facade.service';
 
 @Component({
 	selector: 'app-work-dashboard',
@@ -13,17 +11,16 @@ import * as worksSelectors from '../../store/entities/works.selectors';
 })
 export class WorkDashboardComponent implements OnInit {
 	constructor(
-		private store: Store, 
-		private route: ActivatedRoute) 
+		private facade: WorksFacadeService) 
 	{ }
 
 	work$: Observable<IWork | undefined>;
+	paragraphs$ : Observable<IParagraph[]>;
 
 	ngOnInit(): void {
-		this.work$ = this.store.pipe(select(worksSelectors.getSelectedWork));
-
-		this.store.dispatch(loadWork({
-			workUrlName : this.route.snapshot.paramMap.get("name") ?? ""
-		}));
+		this.work$ = this.facade.getSelectedWork();
+		this.paragraphs$ = this.facade.getParagraphsForSelectedWork();
+		
+		this.facade.loadWorkFromCurrentUrl();
 	}
 }

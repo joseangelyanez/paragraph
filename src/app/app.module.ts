@@ -6,9 +6,9 @@ import { createReducer, StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { WorkHomeComponent } from './works/work-home/work-home.component';
 import { WorkListComponent } from './works/work-list/work-list.component';
-import { createWorksReducer } from './store/entities/works.reducers';
+import { createWorksReducer } from './store/entities/works/works.reducers';
 import { EffectsModule } from '@ngrx/effects';
-import { WorksEffects } from './store/entities/works.effects';
+import { WorksEffects } from './store/entities/works/works.effects';
 import { WorkDashboardComponent } from './works/work-dashboard/work-dashboard.component';
 import { WorksHttpService } from './services/works-http.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -23,6 +23,18 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ParagraphOriginalLanguagesComponent } from './works/paragraph-original-languages/paragraph-original-languages.component';
+import { createParagraphsReducer } from './store/entities/paragraphs/paragraphs.reducers';
+import { WordAnalyzerService } from './services/word-analyzer.service';
+import { WorksFacadeService } from './services/works-facade.service';
+import { createOriginalLanguagesReducer } from './store/entities/original-languages/original-languages.reducers';
+import { createVideosReducer } from './store/entities/videos/videos.reducers';
+import { ParagraphVideosComponent } from './works/paragraph-video/paragraph-video.component';
+import { ParagraphBlogComponent } from './works/paragraph-blog/paragraph-blog.component';
+import { createBlogsReducer } from './store/entities/blogs/blogs.reducers';
+import { createQuestionsReducer } from './store/entities/questions/questions.reducers';
+import { ParagraphDashboardComponent } from './works/paragraph-dashboard/paragraph-dashboard.component';
+import { ParagraphsEffects } from './store/entities/paragraphs/paragraphs.effects';
+import { OriginalLanguagesEffects } from './store/entities/original-languages/original-languages.effects';
  
 @NgModule({
   declarations: [
@@ -31,7 +43,10 @@ import { ParagraphOriginalLanguagesComponent } from './works/paragraph-original-
     WorkListComponent,
     WorkDashboardComponent,
     ParagraphComponent,
-    ParagraphOriginalLanguagesComponent
+    ParagraphOriginalLanguagesComponent,
+    ParagraphVideosComponent,
+    ParagraphBlogComponent,
+    ParagraphDashboardComponent
   ],
   imports: [
     CommonModule,
@@ -40,8 +55,13 @@ import { ParagraphOriginalLanguagesComponent } from './works/paragraph-original-
     HttpClientModule,
     StoreModule.forRoot({}),
     StoreModule.forFeature("works", createWorksReducer),
+    StoreModule.forFeature("paragraphs", createParagraphsReducer),
+    StoreModule.forFeature("originalLanguages", createOriginalLanguagesReducer),
+    StoreModule.forFeature("videos", createVideosReducer),
+    StoreModule.forFeature("blogs", createBlogsReducer),
+    StoreModule.forFeature("questions", createQuestionsReducer),
     EffectsModule.forRoot([]),
-    EffectsModule.forFeature([WorksEffects]),
+    EffectsModule.forFeature([WorksEffects, ParagraphsEffects, OriginalLanguagesEffects]),
     BrowserAnimationsModule,
     MatCardModule,
     MatButtonModule,
@@ -53,6 +73,8 @@ import { ParagraphOriginalLanguagesComponent } from './works/paragraph-original-
   ],
   providers: [
     WorksHttpService,
+    WordAnalyzerService,
+    WorksFacadeService,
     Constants
   ],
   bootstrap: [AppComponent]

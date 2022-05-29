@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IOriginalLanguage } from './original-language.state';
-import { IParagraph } from './paragraphs.state';
+import { IOriginalLanguage } from '.././original-languages/original-languages.state';
 import { IWork } from './works.state';
 
 export const loadWorks = createAction(
@@ -19,17 +18,7 @@ export const loadWork = createAction(
 
 export const loadWorkCompleted = createAction(
     '[work-dashboard] load work completed',
-    props<{ work : IWork, paragraphs:IParagraph[]}>()
-);
-
-
-export const createOriginalLanguage = createAction(
-    "[paragraph-original-languagues] create original language",
-    props<{originalLanguage: IOriginalLanguage}>()
-);
-
-export const createOriginalLanguageCompleted = createAction(
-    "[paragraph-original-languagues] create original language completed"
+    props<{ work : IWork }>()
 );
 
 // Note-to-self:
